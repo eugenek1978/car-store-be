@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Add this row to allow access to all endpoints
 //		   http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
 		
-		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll()
+		http.csrf().disable().cors().and().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll()
 				.anyRequest().authenticated().and()
 				// Filter for the api/login requests
 				.addFilterBefore(new LoginFilter("/login", authenticationManager()),
@@ -51,8 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		config.setAllowedOrigins(Arrays.asList("*"));
 		config.setAllowedMethods(Arrays.asList("*"));
 		config.setAllowedHeaders(Arrays.asList("*"));
-		config.setAllowCredentials(true);
-		config.applyPermitDefaultValues();
+//		config.setAllowCredentials(true);
+//		config.applyPermitDefaultValues();
 
 		source.registerCorsConfiguration("/**", config);
 		return source;
