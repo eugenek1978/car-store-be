@@ -1,5 +1,7 @@
 package com.cardatabase;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -44,31 +47,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("'");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("*");
-		source.registerCorsConfiguration("/**", config);
-		CorsFilter bean = new CorsFilter(source);
-		return bean;
-	}
-
 //	@Bean
-//	CorsConfigurationSource corsConfigurationSource() {
+//	public CorsFilter corsFilter() {
 //		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //		CorsConfiguration config = new CorsConfiguration();
+//		config.setAllowCredentials(true);
+//		config.addAllowedOrigin("*");
+//		config.addAllowedHeader("*");
+//		config.addAllowedMethod("*");
+//		source.registerCorsConfiguration("/**", config);
+//		CorsFilter bean = new CorsFilter(source);
+//		return bean;
+//	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
 //		config.setAllowedOrigins(Arrays.asList("*"));
 //		config.setAllowedMethods(Arrays.asList("*"));
 //		config.setAllowedHeaders(Arrays.asList("*"));
 //		config.setAllowCredentials(true);
-//		config.applyPermitDefaultValues();
-//
-//		source.registerCorsConfiguration("/**", config);
-//		return source;
-//	}
+		config.applyPermitDefaultValues();
+
+		source.registerCorsConfiguration("/**", config);
+		return source;
+	}
 
 }
